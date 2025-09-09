@@ -1,4 +1,4 @@
 Port forwarding instructions
 
-ssh -i -L 80:localhost:8080 ubuntu@ipaddress
+ssh -i <certificate> -L 80:localhost:80 ubuntu@<ipaddress>
 
