@@ -21,21 +21,26 @@
 
      $id=$_POST["product_id"];
      $sql="SELECT Product_ID, Name, Price from product where product_id=$id";
-     $result = $conn->query($sql);
+     $conn->multi_query($sql);
 
-     if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
+    do
+    {
+        if($result = $conn->store_result()){
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
 
-           print("ID: ".$row['Product_ID']);
-           print("<br>");
-           print("Name: ".$row['Name']);
-           print("<br>");
-           print("Price: ".$row['Price']);
+                    print("ID: ".$row['Product_ID']);
+                    print("<br>");
+                    print("Name: ".$row['Name']);
+                    print("<br>");
+                    print("Price: ".$row['Price']);
+                }
+            } else {
+                echo "0 results";
+            }
         }
-      } else {
-        echo "0 results";
-      }
+    } while($conn->more_results());
       $conn->close();
 ?>
 <br>
